@@ -36,7 +36,7 @@
             </exclusions>
         </dependency>
     </dependencies>
-
+    <!--Access MySQL-->
     <build>
         <plugins>
             <plugin>
