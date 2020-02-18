@@ -4,6 +4,7 @@ import com.team6.serviceme.domain.User;
 import com.team6.serviceme.repository.UserRepository;
 import com.team6.serviceme.service.UserService;
 import com.team6.serviceme.util.JwtTokenUtil;
+import com.team6.serviceme.util.TokenCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,4 +53,54 @@ public class UserServiceImpl implements UserService {
         final String token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
+
+    public String selectQuestion(String username){
+        User user = userRepository.findQuestionByUserName(username);
+        if(user.getQuestion() != null){
+            return user.getQuestion();
+        }
+        return "The question of getting back the password is empty";
+    }
+
+    public String checkAnswer(String username,String question, String answer){
+        User user = userRepository.findByUserNameAndQuestionAndAnswer(username, question, answer);
+        if(user != null){
+            String forgetToken = UUID.randomUUID().toString();
+            TokenCache.setKey(TokenCache.TOKEN_PREFIX+username,forgetToken);
+            return forgetToken;
+        }
+        return "Wrong answer";
+    }
+
+    public String resetPassword(String username, String passwordNew, String forgetToken){
+        if(forgetToken == null){
+            return "Parameter error, token needs to be passed";
+        }
+        String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX+username);
+        if(token == null){
+            return "Token is invalid or expired";
+        }
+        if(forgetToken.equals(token)){
+            User user = userRepository.updatePasswordByUserName(username, passwordNew);
+            if(user != null){
+                return "password has been updated";
+            }
+        }else {
+            return "Token error, please reobtain token for reset password";
+        }
+        return "Failed to change password";
+    }
+
+    public String loginResetPassword(String passwordOld,String passwordNew,User user){
+        User u = userRepository.findByPassWordAndId(passwordOld, user.getId());
+        if(u == null){
+            return "Old password is wrong";
+        }
+        User us = userRepository.updateById(user.getId(), passwordNew);
+        if(us != null){
+            return "Password updated successfully";
+        }
+        return "Password updated failed";
+    }
+
 }

@@ -46,5 +46,13 @@ public class User {
     @ApiModelProperty(value = "role", position = 8)
     private String role;
 
+    @ApiModelProperty(value = "question", position = 9)
+    @NonNull
+    private String question;
+
+    @ApiModelProperty(value = "answer", position = 10)
+    @NonNull
+    private String answer;
+
 }
 
