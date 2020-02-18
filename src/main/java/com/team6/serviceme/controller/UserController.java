@@ -11,7 +11,6 @@ import javax.validation.Valid;
 
 @Api(tags = "User Management")
 @RestController
-@RequestMapping(value = "")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -21,7 +20,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     @ApiOperation(value = "Register")
     public User register(@Valid @RequestBody User user) throws AuthenticationException {
         return userService.register(user);
@@ -32,10 +31,9 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     @ApiOperation(value = "Login")
     public String login(@Valid @RequestBody User user) throws AuthenticationException {
-        System.out.println(123);
         return userService.login(user);
     }
 
