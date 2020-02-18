@@ -13,7 +13,6 @@ import javax.validation.Valid;
 
 @Api(tags = "User Management")
 @RestController
-@RequestMapping(value = "")
 public class UserController {
 
 
@@ -25,7 +24,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     @ApiOperation(value = "Register")
     public User register(@Valid @RequestBody User user) throws AuthenticationException {
         return userService.register(user);
@@ -37,7 +36,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     @ApiOperation(value = "Login")
     public String login(@Valid @RequestBody User user,  HttpSession session) throws AuthenticationException {
         String response = userService.login(user);
@@ -69,6 +68,7 @@ public class UserController {
     @ApiOperation(value = "get_question")
     public String forgetGetQuestion(@Valid @RequestBody String username) throws AuthenticationException{
         return userService.selectQuestion(username);
+
     }
 
     /**

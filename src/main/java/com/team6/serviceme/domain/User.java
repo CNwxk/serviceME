@@ -12,11 +12,11 @@ import java.util.Date;
  */
 @Data   //Auto add Getter and Setter
 @Entity
-@Table(name = "user")
 @ApiModel(description="User Entity")
+@NoArgsConstructor
 public class User {
     @ApiModelProperty(value = "User Id", position = 1)
-    @Id @GeneratedValue @NonNull
+    @Id @GeneratedValue
     private Long id;
 
     @ApiModelProperty(value = "User Name", position = 2)
@@ -36,14 +36,13 @@ public class User {
     private String email;
 
     @ApiModelProperty(value = "createTime", position = 6)
-    @NonNull
     private Date creatTime;
 
     @ApiModelProperty(value = "updateTime", position = 7)
-    @NonNull
     private Date updateTime;
 
     @ApiModelProperty(value = "role", position = 8)
+    @NonNull
     private String role;
 
     @ApiModelProperty(value = "question", position = 9)
