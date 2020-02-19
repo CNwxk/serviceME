@@ -27,24 +27,24 @@ public class User {
     @ApiModelProperty(value = "User Password", position = 3)
     @NonNull @Size(min = 6, max = 20)
     private String password;
-
-    @ApiModelProperty(value = "User Phone", position = 4)
-    @NonNull @Size(min = 2, max = 20)
-    private String phoneNumber;
-
-    @ApiModelProperty(value = "User Email", position = 5)
-    @NonNull @Email
-    private String email;
-
-    @ApiModelProperty(value = "createTime", position = 6)
-    private Date creatTime;
-
-    @ApiModelProperty(value = "updateTime", position = 7)
-    private Date updateTime;
-
-    @ApiModelProperty(value = "role", position = 8)
-    @NonNull
-    private String role;
+//
+//    @ApiModelProperty(value = "User Phone", position = 4)
+//    @NonNull @Size(min = 2, max = 20)
+//    private String phoneNumber;
+//
+//    @ApiModelProperty(value = "User Email", position = 5)
+//    @NonNull @Email
+//    private String email;
+//
+//    @ApiModelProperty(value = "createTime", position = 6)
+//    private Date creatTime;
+//
+//    @ApiModelProperty(value = "updateTime", position = 7)
+//    private Date updateTime;
+//
+//    @ApiModelProperty(value = "role", position = 8)
+//    @NonNull
+//    private String role;
 
     @ApiModelProperty(value = "question", position = 9)
     @NonNull
@@ -54,11 +54,11 @@ public class User {
     @NonNull
     private String answer;
 
-    @ApiModelProperty(value = "User Address", position = 11)
-    @NonNull
-    private String address;
-
-    @ApiModelProperty(value = "User Type", position = 12)
-    private String type;
+//    @ApiModelProperty(value = "User Address", position = 11)
+//    @NonNull
+//    private String address;
+//
+//    @ApiModelProperty(value = "User Type", position = 12)
+//    private String type;
 }
 
