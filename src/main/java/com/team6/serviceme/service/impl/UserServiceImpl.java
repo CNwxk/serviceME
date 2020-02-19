@@ -4,6 +4,7 @@ import com.team6.serviceme.domain.User;
 import com.team6.serviceme.repository.UserRepository;
 import com.team6.serviceme.service.UserService;
 import com.team6.serviceme.util.JwtTokenUtil;
+import com.team6.serviceme.util.TokenCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,4 +51,40 @@ public class UserServiceImpl implements UserService {
         final String token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
+
+    public String selectQuestion(User user){
+        String username = user.getUserName();
+        User u = userRepository.findQuestionByUserName(username);
+        if(u.getQuestion() != null){
+            return u.getQuestion();
+        }
+        return "The question of getting back the password is empty";
+    }
+
+    public String checkAnswer(User user){
+        String username = user.getUserName();
+        String question = user.getQuestion();
+        String answer = user.getAnswer();
+        User u = userRepository.findByUserNameAndQuestionAndAnswer(username, question, answer);
+        if(u != null){
+            return "Success";
+        }
+        return "Wrong answer";
+    }
+
+    public String resetPassword(User user){
+        String username = user.getUserName();
+        String passwordNew = user.getPassWord();
+        if( userRepository.findUserByUserName(username) != null){
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            int result = userRepository.updatePassWordByUserName(encoder.encode(passwordNew), username);
+            if(result > 0){
+                return "password has been updated";
+            }
+        }else {
+            return "username error";
+        }
+        return "Failed to change password";
+    }
+
 }

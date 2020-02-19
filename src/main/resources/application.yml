@@ -8,9 +8,9 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:8888/test
+    url: jdbc:mysql://localhost:3306/text
     username: root
-    password: wxk159357
+    password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver
   security:
     user:
