@@ -6,6 +6,8 @@ import com.team6.serviceme.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,13 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Bean
+    public TomcatServletWebServerFactory tomcat() {
+        TomcatServletWebServerFactory tomcatFactory = new TomcatServletWebServerFactory();
+        tomcatFactory.setPort(8090); //默认启动8090端口
+        return tomcatFactory;
+    }
 
     /**
      * Register
