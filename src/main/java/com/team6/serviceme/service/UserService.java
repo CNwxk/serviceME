@@ -17,31 +17,20 @@ public interface UserService {
 
     /**
      * selectQuestion
-     * @param username
+     * @param user
      */
-    String selectQuestion(String username);
+    String selectQuestion(User user);
 
     /**
      * checkAnswer
-     * @param username
-     * @param question
-     * @param answer
+     * @param user
      */
-    String checkAnswer(String username,String question, String answer);
+    String checkAnswer(User user);
 
     /**
      * resetPassword
-     * @param username
-     * @param passwordNew
-     * @param forgetToken
-     */
-    String resetPassword(String username, String passwordNew, String forgetToken);
-
-    /**
-     * loginResetPassword
-     * @param passwordOld
-     * @param passwordNew
      * @param user
      */
-    String loginResetPassword(String passwordOld,String passwordNew,User user);
+    String resetPassword(User user);
+
 }
