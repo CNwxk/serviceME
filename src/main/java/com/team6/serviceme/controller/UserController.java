@@ -66,7 +66,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/forget_get_question")
+    @PostMapping("/user/forget_get_question")
     @ApiOperation(value = "get_question")
     public String forgetGetQuestion(@Valid @RequestBody User user) throws AuthenticationException{
         return userService.selectQuestion(user);
@@ -78,7 +78,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/forget_check_answer")
+    @PostMapping("/user/forget_check_answer")
     @ApiOperation(value = "check_answer")
     public String forgetCheckAnswer(@Valid @RequestBody User user) throws AuthenticationException{
         return userService.checkAnswer(user);
@@ -89,7 +89,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/forget_reset_password")
+    @PostMapping("/user/forget_reset_password")
     @ApiOperation(value = "reset_password")
     public String forgetResetPassword(@Valid @RequestBody User user) throws AuthenticationException{
         return userService.resetPassword(user);
