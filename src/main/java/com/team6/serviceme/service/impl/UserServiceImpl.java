@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return token;
+        return "{'token':" + token +"}";
     }
 
     @Override
