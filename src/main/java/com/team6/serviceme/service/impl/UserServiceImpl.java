@@ -35,15 +35,15 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        final String rawPassword = user.getPassword();
-        user.setPassword(encoder.encode(rawPassword));
+        final String rawPassword = user.getPassWord();
+        user.setPassWord(encoder.encode(rawPassword));
         return userRepository.save(user);
     }
 
     @Override
     public String login(User user){
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
-                user.getUserName(), user.getPassword());
+                user.getUserName(), user.getPassWord());
 
         final Authentication authentication = authenticationManager.authenticate(upToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String resetPassword(User user){
         String username = user.getUserName();
-        String passwordNew = user.getPassword();
+        String passwordNew = user.getPassWord();
         if( userRepository.findUserByUserName(username) != null){
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             int result = userRepository.updatePassWordByUserName(encoder.encode(passwordNew), username);

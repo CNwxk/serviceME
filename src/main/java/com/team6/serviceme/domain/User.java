@@ -25,11 +25,11 @@ public class User {
 
     @ApiModelProperty(value = "User Password", position = 3)
     @NonNull
-    private String password;
+    private String passWord;
 
     @ApiModelProperty(value = "User Phone", position = 4)
     @NonNull @Size(min = 2, max = 20)
-    private String phoneNumber;
+    private String phone;
 
     @ApiModelProperty(value = "User Email", position = 5)
     @NonNull @Email
