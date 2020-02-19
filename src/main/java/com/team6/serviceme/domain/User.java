@@ -58,8 +58,8 @@ public class User {
     @NonNull
     private String address;
 
-    @ApiModelProperty(value = "User Type", position = 11)
+    @ApiModelProperty(value = "User Type", position = 12)
     @NonNull
-    private List<String> type;
+    private String type;
 }
 
