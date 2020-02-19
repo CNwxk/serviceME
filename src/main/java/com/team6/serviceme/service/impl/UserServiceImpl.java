@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -40,7 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(User user){
+    public List<String> login(User user){
+        List list = new ArrayList();
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
                 user.getUserName(), user.getPassWord());
 
@@ -49,7 +53,9 @@ public class UserServiceImpl implements UserService {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return token;
+        list.add(user.getRole());
+        list.add(token);
+        return list;
     }
 
     @Override

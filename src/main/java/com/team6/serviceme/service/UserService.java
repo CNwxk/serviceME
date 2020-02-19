@@ -2,6 +2,8 @@ package com.team6.serviceme.service;
 
 import com.team6.serviceme.domain.User;
 
+import java.util.List;
+
 public interface UserService {
     /**
      * Register
@@ -14,7 +16,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    String login(User user);
+    List<String> login(User user);
 
     /**
      * selectQuestion

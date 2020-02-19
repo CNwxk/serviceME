@@ -15,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(tags = "User Management")
 @RestController
@@ -46,7 +47,7 @@ public class UserController {
      */
     @PostMapping("/user/login")
     @ApiOperation(value = "Login")
-    public BaseResponse<String> login(@Valid @RequestBody User user) throws AuthenticationException {
+    public BaseResponse<List<String>> login(@Valid @RequestBody User user) throws AuthenticationException {
         return new ResultResponse<>(userService.login(user));
     }
 
