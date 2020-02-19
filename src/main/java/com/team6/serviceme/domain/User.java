@@ -21,11 +21,11 @@ public class User {
     private Long id;
 
     @ApiModelProperty(value = "User Name", position = 2)
-    @NonNull @Size(min = 2, max = 30)
+    @NonNull @Size(min = 1, max = 15)
     private String userName;
 
     @ApiModelProperty(value = "User Password", position = 3)
-    @NonNull
+    @NonNull @Size(min = 6, max = 20)
     private String password;
 
     @ApiModelProperty(value = "User Phone", position = 4)
@@ -59,7 +59,6 @@ public class User {
     private String address;
 
     @ApiModelProperty(value = "User Type", position = 12)
-    @NonNull
     private String type;
 }
 
