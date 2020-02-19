@@ -62,7 +62,7 @@ public class UserController {
 //    }
 
     /**
-     * get_question
+     * get_user_question
      * @param user
      * @return
      */
