@@ -1,7 +1,6 @@
 package com.team6.serviceme.service;
 
 import com.team6.serviceme.domain.User;
-import org.json.JSONObject;
 
 public interface UserService {
     /**
