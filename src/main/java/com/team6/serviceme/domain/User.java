@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Set User Attributes
@@ -21,11 +20,11 @@ public class User {
     private Long id;
 
     @ApiModelProperty(value = "User Name", position = 2)
-    @NonNull @Size(min = 1, max = 15)
+    @NonNull @Size(min = 2, max = 15)
     private String userName;
 
     @ApiModelProperty(value = "User Password", position = 3)
-    @NonNull @Size(min = 6, max = 20)
+    @NonNull
     private String password;
 
     @ApiModelProperty(value = "User Phone", position = 4)
