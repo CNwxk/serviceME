@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Set User Attributes
@@ -53,5 +54,12 @@ public class User {
     @NonNull
     private String answer;
 
+    @ApiModelProperty(value = "User Address", position = 11)
+    @NonNull
+    private String address;
+
+    @ApiModelProperty(value = "User Type", position = 11)
+    @NonNull
+    private List<String> type;
 }
 

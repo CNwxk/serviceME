@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
     public String login(User user){
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
                 user.getUserName(), user.getPassWord());
@@ -52,6 +53,7 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
+    @Override
     public String selectQuestion(User user){
         String username = user.getUserName();
         User u = userRepository.findQuestionByUserName(username);
@@ -61,6 +63,7 @@ public class UserServiceImpl implements UserService {
         return "The question of getting back the password is empty";
     }
 
+    @Override
     public String checkAnswer(User user){
         String username = user.getUserName();
         String question = user.getQuestion();
@@ -72,6 +75,7 @@ public class UserServiceImpl implements UserService {
         return "Wrong answer";
     }
 
+    @Override
     public String resetPassword(User user){
         String username = user.getUserName();
         String passwordNew = user.getPassWord();
