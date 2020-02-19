@@ -1,5 +1,7 @@
 package com.team6.serviceme.controller;
 
+import com.team6.serviceme.base.BaseResponse;
+import com.team6.serviceme.base.ResultResponse;
 import com.team6.serviceme.domain.User;
 import com.team6.serviceme.service.UserService;
 import com.team6.serviceme.util.JwtTokenUtil;
@@ -33,8 +35,8 @@ public class UserController {
      */
     @PostMapping("/user/register")
     @ApiOperation(value = "Register")
-    public User register(@Valid @RequestBody User user) throws AuthenticationException {
-        return userService.register(user);
+    public BaseResponse<User> register(@Valid @RequestBody User user) throws AuthenticationException {
+        return new ResultResponse<>(userService.register(user));
     }
 
     /**
@@ -44,9 +46,8 @@ public class UserController {
      */
     @PostMapping("/user/login")
     @ApiOperation(value = "Login")
-    public String login(@Valid @RequestBody User user) throws AuthenticationException {
-        return userService.login(user);
-
+    public BaseResponse<String> login(@Valid @RequestBody User user) throws AuthenticationException {
+        return new ResultResponse<>(userService.login(user));
     }
 
 //    /**
@@ -68,8 +69,8 @@ public class UserController {
      */
     @PostMapping("/user/forget_get_question")
     @ApiOperation(value = "get_question")
-    public String forgetGetQuestion(@Valid @RequestBody User user) throws AuthenticationException{
-        return userService.selectQuestion(user);
+    public BaseResponse<String> forgetGetQuestion(@Valid @RequestBody User user) throws AuthenticationException{
+        return new ResultResponse<>(userService.selectQuestion(user));
 
     }
 
@@ -80,8 +81,8 @@ public class UserController {
      */
     @PostMapping("/user/forget_check_answer")
     @ApiOperation(value = "check_answer")
-    public String forgetCheckAnswer(@Valid @RequestBody User user) throws AuthenticationException{
-        return userService.checkAnswer(user);
+    public BaseResponse<String> forgetCheckAnswer(@Valid @RequestBody User user) throws AuthenticationException{
+        return new ResultResponse<>(userService.checkAnswer(user));
     }
 
     /**
@@ -91,8 +92,8 @@ public class UserController {
      */
     @PostMapping("/user/forget_reset_password")
     @ApiOperation(value = "reset_password")
-    public String forgetResetPassword(@Valid @RequestBody User user) throws AuthenticationException{
-        return userService.resetPassword(user);
+    public BaseResponse<String> forgetResetPassword(@Valid @RequestBody User user) throws AuthenticationException{
+        return new ResultResponse<>(userService.resetPassword(user));
     }
 
     /**

@@ -4,7 +4,6 @@ import com.team6.serviceme.domain.User;
 import com.team6.serviceme.repository.UserRepository;
 import com.team6.serviceme.service.UserService;
 import com.team6.serviceme.util.JwtTokenUtil;
-import com.team6.serviceme.util.TokenCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return "{'token':" + token +"}";
+        return token;
     }
 
     @Override
