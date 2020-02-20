@@ -21,8 +21,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private UserDetailsService userDetailsService;
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailServiceImpl userDetailServiceImpl;
     @Autowired
     private UserRepository userRepository;
 //    @Autowired
@@ -42,6 +44,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+//    @Override
+//    public List<String> login(User user){
+//        List list = new ArrayList();
+//        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
+//                user.getUserName(), user.getPassWord());
+//
+//        final Authentication authentication = authenticationManager.authenticate(upToken);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
+//        final String token = jwtTokenUtil.generateToken(userDetails);
+//        list.add(user.getRole());
+//        list.add(token);
+//        list.add(user.getUserName());
+//        return list;
+//    }
     @Override
     public List<String> login(User user){
         List list = new ArrayList();
@@ -51,11 +69,10 @@ public class UserServiceImpl implements UserService {
         final Authentication authentication = authenticationManager.authenticate(upToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
+        final UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(user.getUserName());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        list.add(user.getRole());
         list.add(token);
-        list.add(user.getUserName());
+        list.add(userDetails);
         return list;
     }
 
