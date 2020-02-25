@@ -22,12 +22,10 @@ public class JwtTokenUtil implements Serializable {
     public static final long serialVersionUID = -5625635588908941275L;
     public static final String CLAIM_KEY_USERNAME = "sub";
     public static final String CLAIM_KEY_CREATED = "created";
-    public static final String CLAIM_USER_ROLE = "role";
     public static final long EXPIRATION_TIME = 432_000_000;     // Expiration Time
     public static final String SECRET = "CodeSheepSecret";      // JWT Password
     public static final String TOKEN_PREFIX = "Bearer";         // Token Header
     public static final String HEADER_STRING = "Authorization"; // Header Key
-
 
     /**
      * Get Username from Token
@@ -102,7 +100,7 @@ public class JwtTokenUtil implements Serializable {
      * @param token
      * @return
      */
-    public Boolean isTokenExpired(String token) {
+    private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
@@ -116,7 +114,6 @@ public class JwtTokenUtil implements Serializable {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-        claims.put(CLAIM_USER_ROLE, userDetails);
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
@@ -153,7 +150,7 @@ public class JwtTokenUtil implements Serializable {
         User user = (User) userDetails;
         final String username = getUsernameFromToken(token);
         return (
-                username.equals(user.getUserName())
+                username.equals(user.getUsername())
                         && !isTokenExpired(token)
         );
     }
