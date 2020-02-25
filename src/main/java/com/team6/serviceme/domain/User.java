@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,13 +61,42 @@ public class User implements UserDetails {
     @NonNull
     private String answer;
 
-    @ApiModelProperty(value = "User Address", position = 11)
+    @ApiModelProperty(value = "User State Address", position = 11)
     @NonNull
-    private String address;
+    private String userState;
 
-    @ApiModelProperty(value = "User Type", position = 12)
-    private String type;
+    @ApiModelProperty(value = "User City Address", position = 12)
+    @NonNull
+    private String userCity;
 
+    @ApiModelProperty(value = "User Detail Address", position = 13)
+    @NonNull
+    private String userDetailAddress;
+
+    @ApiModelProperty(value = "User ZipCode", position = 14)
+    @NonNull
+    private String userZipCode;
+
+    @ApiModelProperty(value = "User Profile Picture", position = 15)
+    private String userPicture;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @ApiModelProperty(value = "User Type", position = 16)
+    private List<String> type;
+
+    @ApiModelProperty(value = "Vendor Description", position = 17)
+    private String vendorDescription;
+
+    @PrePersist
+    protected void onCreate(){
+        creatTime = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate(){
+        updateTime = new Date();
+    }
+   
     @Override
     public boolean isAccountNonExpired() {
         return true;
