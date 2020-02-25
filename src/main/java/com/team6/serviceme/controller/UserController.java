@@ -8,6 +8,7 @@ import com.team6.serviceme.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,11 @@ public class UserController {
         return new ResultResponse<>(userService.register(user));
     }
 
+    @GetMapping("/hello")
+    public Authentication hello(Authentication auth) throws AuthenticationException {
+        return auth;
+    }
+
     /**
      * Login
      * @param user
@@ -50,8 +56,6 @@ public class UserController {
     public BaseResponse<List<String>> login(@Valid @RequestBody User user) throws AuthenticationException {
         return new ResultResponse<>(userService.login(user));
     }
-
-
 
 //    /**
 //     * Logout
@@ -113,7 +117,7 @@ public class UserController {
             return "Need to login";
         }
         try{
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
             if(jwtTokenUtil.validateToken(authorization, userDetails)){
                 return userService.resetPassword(user);
             }
