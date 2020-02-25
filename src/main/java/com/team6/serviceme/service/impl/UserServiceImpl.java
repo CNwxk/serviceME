@@ -21,30 +21,26 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
-//    @Autowired
-//    private UserDetailsService userDetailsService;
     @Autowired
     private UserDetailServiceImpl userDetailServiceImpl;
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
     public User register(User user){
-        final String username = user.getUserName();
+        final String username = user.getUsername();
         if( userRepository.findUserByUserName(username)!=null ) {
             return null;
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        final String rawPassword = user.getPassWord();
+        final String rawPassword = user.getPassword();
         user.setPassWord(encoder.encode(rawPassword));
         return userRepository.save(user);
     }
 
-//    @Override
+    //    @Override
 //    public List<String> login(User user){
 //        List list = new ArrayList();
 //        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
@@ -64,12 +60,12 @@ public class UserServiceImpl implements UserService {
     public List<String> login(User user){
         List list = new ArrayList();
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
-                user.getUserName(), user.getPassWord());
+                user.getUsername(), user.getPassword());
 
         final Authentication authentication = authenticationManager.authenticate(upToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(user.getUserName());
+        final UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(user.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         list.add(token);
         list.add(userDetails);
@@ -78,7 +74,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String selectQuestion(User user){
-        String username = user.getUserName();
+        String username = user.getUsername();
         User u = userRepository.findQuestionByUserName(username);
         if(u.getQuestion() != null){
             return u.getQuestion();
@@ -88,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String checkAnswer(User user){
-        String username = user.getUserName();
+        String username = user.getUsername();
         String question = user.getQuestion();
         String answer = user.getAnswer();
         User u = userRepository.findByUserNameAndQuestionAndAnswer(username, question, answer);
@@ -100,8 +96,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String resetPassword(User user){
-        String username = user.getUserName();
-        String passwordNew = user.getPassWord();
+        String username = user.getUsername();
+        String passwordNew = user.getPassword();
         if( userRepository.findUserByUserName(username) != null){
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             int result = userRepository.updatePassWordByUserName(encoder.encode(passwordNew), username);

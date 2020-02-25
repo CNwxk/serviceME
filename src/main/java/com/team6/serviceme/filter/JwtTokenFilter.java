@@ -15,7 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * Check User Token Valid or Not
+ * Give User Authentication
+ *
+ */
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
@@ -28,6 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal ( HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String authHeader = request.getHeader(JwtTokenUtil.HEADER_STRING);
+
         if (authHeader != null && authHeader.startsWith(JwtTokenUtil.TOKEN_PREFIX)) {
             final String authToken = authHeader.substring(JwtTokenUtil.TOKEN_PREFIX.length());
             String username = jwtTokenUtil.getUsernameFromToken(authToken);

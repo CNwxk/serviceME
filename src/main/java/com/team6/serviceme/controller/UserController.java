@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.AuthenticationException;
@@ -37,6 +38,11 @@ public class UserController {
     @ApiOperation(value = "Register")
     public BaseResponse<User> register(@Valid @RequestBody User user) throws AuthenticationException {
         return new ResultResponse<>(userService.register(user));
+    }
+
+    @GetMapping("/hello")
+    public Authentication hello(Authentication auth) throws AuthenticationException {
+        return auth;
     }
 
     /**
@@ -118,6 +124,6 @@ public class UserController {
     @ApiOperation(value = "update_user_information")
     public BaseResponse<User> updateUserInformation(@Valid @RequestBody User user, Authentication auth) throws AuthenticationException{
         user.setId((Long)auth.getPrincipal());
-        return new ResultResponse<>(userService.updateInformation(user));
+        return new ResultResponse<>(userService.updateInformation(user));   
     }
 }

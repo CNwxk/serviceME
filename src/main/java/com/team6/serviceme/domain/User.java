@@ -2,10 +2,17 @@ package com.team6.serviceme.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Set User Attributes
@@ -15,7 +22,7 @@ import java.util.List;
 @Entity
 @ApiModel(description="User Entity")
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails {
     @ApiModelProperty(value = "User Id", position = 1)
     @Id @GeneratedValue
     private Long id;
@@ -89,5 +96,44 @@ public class User {
     protected void onUpdate(){
         updateTime = new Date();
     }
+   
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(role));
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public String getPassword() {
+        return passWord;
+    }
+
 }
 
