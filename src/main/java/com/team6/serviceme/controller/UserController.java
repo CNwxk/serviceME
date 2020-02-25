@@ -8,12 +8,11 @@ import com.team6.serviceme.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.AuthenticationException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -51,17 +50,6 @@ public class UserController {
         return new ResultResponse<>(userService.login(user));
     }
 
-//    /**
-//     * Logout
-//     * @param session
-//     * @return
-//     */
-//    @PostMapping("/logout")
-//    @ApiOperation(value = "Logout")
-//    public String logout(@RequestBody HttpSession session) throws AuthenticationException{
-//        session.removeAttribute("success");
-//        return "Logout Success";
-//    }
 
     /**
      * get_user_question
@@ -98,27 +86,38 @@ public class UserController {
     }
 
     /**
-     * reset_password
+     * login_reset_password
      * @param user
      * @return
      */
-    @PostMapping("/reset_password")
-    @ApiOperation(value = "reset_password")
-    public String resetPassword(@Valid @RequestBody User user, HttpServletRequest request) throws AuthenticationException{
-        String authorization = request.getHeader("authorization");
-        if(authorization == null){
-            //返回登陆
-            return "Need to login";
-        }
-        try{
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
-            if(jwtTokenUtil.validateToken(authorization, userDetails)){
-                return userService.resetPassword(user);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return "Token invalid";
-        }
-        return "reset password failed";
+    @PostMapping("/login_reset_password")
+    @ApiOperation(value = "login_reset_password")
+    public BaseResponse<String> loginResetPassword(@Valid @RequestBody User user, Authentication auth) throws AuthenticationException{
+        user.setId((Long)auth.getPrincipal());
+        return new ResultResponse<>(userService.resetPassword(user));
+    }
+
+    /**
+     * get_user_information
+     * @param auth
+     * @return
+     */
+    @PostMapping("/get_user_information")
+    @ApiOperation(value = "get_user_information")
+    public BaseResponse<User> getUserInformation(@Valid @RequestBody Authentication auth) throws AuthenticationException{
+        return new ResultResponse<>(userService.getInformation((Long)auth.getPrincipal()));
+    }
+
+    /**
+     * update_user_information
+     * @param user
+     * @param auth
+     * @return
+     */
+    @PostMapping("/update_user_information")
+    @ApiOperation(value = "update_user_information")
+    public BaseResponse<User> updateUserInformation(@Valid @RequestBody User user, Authentication auth) throws AuthenticationException{
+        user.setId((Long)auth.getPrincipal());
+        return new ResultResponse<>(userService.updateInformation(user));
     }
 }

@@ -10,10 +10,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,6 +112,32 @@ public class UserServiceImpl implements UserService {
             return "username error";
         }
         return "Failed to change password";
+    }
+
+    @Override
+    public User getInformation(Long id){
+        User user = userRepository.findUserById(id);
+        if(user == null){
+            return null;
+        }
+        user.setPassWord(null);
+        return user;
+    }
+
+    @Override
+    public User updateInformation(User user){
+        User updateUser = new User();
+        updateUser.setId(user.getId());
+        updateUser.setPhone(user.getPhone());
+        updateUser.setType(user.getType());
+        updateUser.setUserPicture(user.getUserPicture());
+        updateUser.setUserState(user.getUserState());
+        updateUser.setUserCity(user.getUserCity());
+        updateUser.setUserDetailAddress(user.getUserDetailAddress());
+        updateUser.setUserZipCode(user.getUserZipCode());
+        updateUser.setVendorDescription(user.getVendorDescription());
+
+        return userRepository.save(updateUser);
     }
 
 }
