@@ -37,12 +37,6 @@ public interface UserService {
     String resetPassword(User user);
 
     /**
-     * getInformation
-     * @param id
-     */
-    User getInformation(Long id);
-
-    /**
      * updateInformation
      * @param user
      */

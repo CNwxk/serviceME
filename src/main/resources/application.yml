@@ -33,3 +33,4 @@ swagger:
   ui-config:
     tags-sorter: alpha
     operations-sorter: alpha
+

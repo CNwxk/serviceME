@@ -4,13 +4,10 @@ import com.team6.serviceme.base.BaseResponse;
 import com.team6.serviceme.base.ResultResponse;
 import com.team6.serviceme.domain.User;
 import com.team6.serviceme.service.UserService;
-import com.team6.serviceme.util.JwtTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.AuthenticationException;
 
@@ -24,10 +21,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     /**
      * Register
@@ -38,11 +31,6 @@ public class UserController {
     @ApiOperation(value = "Register")
     public BaseResponse<User> register(@Valid @RequestBody User user) throws AuthenticationException {
         return new ResultResponse<>(userService.register(user));
-    }
-
-    @GetMapping("/hello")
-    public Authentication hello(Authentication auth) throws AuthenticationException {
-        return auth;
     }
 
     /**
@@ -110,8 +98,9 @@ public class UserController {
      */
     @PostMapping("/get_user_information")
     @ApiOperation(value = "get_user_information")
-    public BaseResponse<User> getUserInformation(@Valid @RequestBody Authentication auth) throws AuthenticationException{
-        return new ResultResponse<>(userService.getInformation((Long)auth.getPrincipal()));
+    public BaseResponse<User> getUserInformation(Authentication auth) throws AuthenticationException{
+        User user = (User) auth.getPrincipal();
+        return new ResultResponse<>(user);
     }
 
     /**
