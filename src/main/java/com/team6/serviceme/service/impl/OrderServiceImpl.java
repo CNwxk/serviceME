@@ -3,7 +3,6 @@ package com.team6.serviceme.service.impl;
 import com.team6.serviceme.domain.Order;
 import com.team6.serviceme.repository.OrderRepository;
 import com.team6.serviceme.service.OrderService;
-import com.team6.serviceme.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

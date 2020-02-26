@@ -40,11 +40,6 @@ public class UserController {
         return new ResultResponse<>(userService.register(user));
     }
 
-    @GetMapping("/hello")
-    public Authentication hello(Authentication auth) throws AuthenticationException {
-        return auth;
-    }
-
     /**
      * Login
      * @param user
@@ -98,9 +93,9 @@ public class UserController {
      */
     @PostMapping("/login_reset_password")
     @ApiOperation(value = "login_reset_password")
-    public BaseResponse<String> loginResetPassword(@Valid @RequestBody User user, Authentication auth) throws AuthenticationException{
-        user.setId((Long)auth.getPrincipal());
-        return new ResultResponse<>(userService.resetPassword(user));
+    public BaseResponse<User> loginResetPassword(@Valid @RequestBody User user, Authentication auth) throws AuthenticationException{
+        User u = (User) auth.getPrincipal();
+        return new ResultResponse<>(userService.loginResetPassword(user, u));
     }
 
     /**
@@ -110,8 +105,9 @@ public class UserController {
      */
     @PostMapping("/get_user_information")
     @ApiOperation(value = "get_user_information")
-    public BaseResponse<User> getUserInformation(@Valid @RequestBody Authentication auth) throws AuthenticationException{
-        return new ResultResponse<>(userService.getInformation((Long)auth.getPrincipal()));
+    public BaseResponse<User> getUserInformation(Authentication auth) throws AuthenticationException{
+        User user = (User)auth.getPrincipal();
+        return new ResultResponse<>(user);
     }
 
     /**
@@ -122,8 +118,8 @@ public class UserController {
      */
     @PostMapping("/update_user_information")
     @ApiOperation(value = "update_user_information")
-    public BaseResponse<User> updateUserInformation(@Valid @RequestBody User user, Authentication auth) throws AuthenticationException{
-        user.setId((Long)auth.getPrincipal());
-        return new ResultResponse<>(userService.updateInformation(user));   
+    public BaseResponse<User> updateUserInformation(@RequestBody User user, Authentication auth) throws AuthenticationException{
+        User u = (User) auth.getPrincipal();
+        return new ResultResponse<>(userService.updateInformation(user, u));
     }
 }

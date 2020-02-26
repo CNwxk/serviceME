@@ -96,8 +96,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String resetPassword(User user){
-        String username = user.getUsername();
         String passwordNew = user.getPassword();
+        String username = user.getUsername();
         if( userRepository.findUserByUserName(username) != null){
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             int result = userRepository.updatePassWordByUserName(encoder.encode(passwordNew), username);
@@ -111,29 +111,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getInformation(Long id){
-        User user = userRepository.findUserById(id);
-        if(user == null){
-            return null;
-        }
-        user.setPassWord(null);
-        return user;
+    public User loginResetPassword(User user, User u){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        u.setPassWord(encoder.encode(user.getPassword()));
+        return userRepository.save(u);
     }
 
-    @Override
-    public User updateInformation(User user){
-        User updateUser = new User();
-        updateUser.setId(user.getId());
-        updateUser.setPhone(user.getPhone());
-        updateUser.setType(user.getType());
-        updateUser.setUserPicture(user.getUserPicture());
-        updateUser.setUserState(user.getUserState());
-        updateUser.setUserCity(user.getUserCity());
-        updateUser.setUserDetailAddress(user.getUserDetailAddress());
-        updateUser.setUserZipCode(user.getUserZipCode());
-        updateUser.setVendorDescription(user.getVendorDescription());
 
-        return userRepository.save(updateUser);
+    @Override
+    public User updateInformation(User user, User u){
+        u.setPhone(user.getPhone());
+        u.setType(user.getType());
+        u.setUserPicture(user.getUserPicture());
+        u.setUserState(user.getUserState());
+        u.setUserCity(user.getUserCity());
+        u.setUserDetailAddress(user.getUserDetailAddress());
+        u.setUserZipCode(user.getUserZipCode());
+        u.setVendorDescription(user.getVendorDescription());
+
+        return userRepository.save(u);
     }
 
 }
