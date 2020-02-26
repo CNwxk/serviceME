@@ -3,6 +3,7 @@ package com.team6.serviceme.controller;
 import com.team6.serviceme.base.BaseResponse;
 import com.team6.serviceme.base.ResultResponse;
 import com.team6.serviceme.domain.Order;
+import com.team6.serviceme.domain.User;
 import com.team6.serviceme.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +32,9 @@ public class OrderController {
     @PostMapping("/order/createOrder")
     @ApiOperation(value = "createOrder")
     public BaseResponse<Order> createOrder(@Valid @RequestBody Order order, Authentication auth) throws AuthenticationException {
-        order.setUserId((Long)auth.getPrincipal());
+        User u = (User) auth.getPrincipal();
+        Long id = u.getId();
+        order.setUserId(id);
         return new ResultResponse<>(orderService.createNewOrder(order));
     }
 }

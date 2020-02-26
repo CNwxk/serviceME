@@ -21,7 +21,7 @@ import java.util.Date;
 public class Order {
     @ApiModelProperty(value = "Id", position = 1)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @ApiModelProperty(value = "Order Id", position = 2)
@@ -70,6 +70,7 @@ public class Order {
     private String orderPhone;
 
     @ApiModelProperty(value = "Order Status", position = 14)
+    @NonNull
     private Integer orderStatus;
 
     @ApiModelProperty(value = "Customer Accept Price", position = 15)

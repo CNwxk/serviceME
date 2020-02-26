@@ -37,9 +37,16 @@ public interface UserService {
     String resetPassword(User user);
 
     /**
+     * loginResetPassword
+     * @param user
+     * @param u
+     */
+    User loginResetPassword(User user, User u);
+
+    /**
      * updateInformation
      * @param user
      */
-    User updateInformation(User user);
+    User updateInformation(User user, User u);
 
 }
