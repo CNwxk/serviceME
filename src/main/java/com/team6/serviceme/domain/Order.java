@@ -34,56 +34,53 @@ public class Order {
     @NonNull
     private String orderType;
 
-    @ApiModelProperty(value = "Picture of Description Problem", position = 5)
-    private String descriptionPicture;
-
-    @ApiModelProperty(value = "Problem Description", position = 6)
+    @ApiModelProperty(value = "Problem Description", position = 5)
     @NonNull
     private String problemDescription;
 
-    @ApiModelProperty(value = "Customer Can Accept Min Price", position = 7)
+    @ApiModelProperty(value = "Customer Can Accept Min Price", position = 6)
     @NonNull
     private Integer minPrice;
 
-    @ApiModelProperty(value = "Customer Can Accept Max Price", position = 8)
+    @ApiModelProperty(value = "Customer Can Accept Max Price", position = 7)
     @NonNull
     private Integer maxPrice;
 
-    @ApiModelProperty(value = "Order State Address", position = 9)
+    @ApiModelProperty(value = "Order State Address", position = 8)
     @NonNull
     private String orderState;
 
-    @ApiModelProperty(value = "Order City Address", position = 10)
+    @ApiModelProperty(value = "Order City Address", position = 9)
     @NonNull
     private String orderCity;
 
-    @ApiModelProperty(value = "Order Detail Address", position = 11)
+    @ApiModelProperty(value = "Order Detail Address", position = 10)
     @NonNull
     private String orderDetailAddress;
 
-    @ApiModelProperty(value = "Order Zip Code", position = 12)
+    @ApiModelProperty(value = "Order Zip Code", position = 11)
     @NonNull
     private String orderZipCode;
 
-    @ApiModelProperty(value = "Phone Number", position = 13)
+    @ApiModelProperty(value = "Phone Number", position = 12)
     @NonNull
     private String orderPhone;
 
-    @ApiModelProperty(value = "Order Status", position = 14)
+    @ApiModelProperty(value = "Order Status", position = 13)
     @NonNull
     private Integer orderStatus;
 
-    @ApiModelProperty(value = "Customer Accept Price", position = 15)
+    @ApiModelProperty(value = "Customer Accept Price", position = 14)
     private String finalPrice;
 
-    @ApiModelProperty(value = "Customer Choose Service Time", position = 16)
+    @ApiModelProperty(value = "Customer Choose Service Time", position = 15)
     @NonNull
     private String serviceTime;
 
-    @ApiModelProperty(value = "createTime", position = 17)
+    @ApiModelProperty(value = "createTime", position = 16)
     private Date creatTime;
 
-    @ApiModelProperty(value = "updateTime", position = 18)
+    @ApiModelProperty(value = "updateTime", position = 17)
     private Date updateTime;
 
     @PrePersist

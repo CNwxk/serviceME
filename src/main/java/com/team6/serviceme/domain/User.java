@@ -77,14 +77,11 @@ public class User implements UserDetails {
     @NonNull
     private String userZipCode;
 
-    @ApiModelProperty(value = "User Profile Picture", position = 15)
-    private String userPicture;
-
     @ElementCollection(fetch = FetchType.EAGER)
-    @ApiModelProperty(value = "User Type", position = 16)
+    @ApiModelProperty(value = "User Type", position = 15)
     private List<String> type;
 
-    @ApiModelProperty(value = "Vendor Description", position = 17)
+    @ApiModelProperty(value = "Vendor Description", position = 16)
     private String vendorDescription;
 
     @PrePersist
