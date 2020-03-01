@@ -24,7 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class User implements UserDetails {
     @ApiModelProperty(value = "User Id", position = 1)
-    @Id @GeneratedValue(strategy = GenerationType.TABLE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ApiModelProperty(value = "User Name", position = 2)
@@ -77,15 +77,15 @@ public class User implements UserDetails {
     @NonNull
     private String userZipCode;
 
-    @ApiModelProperty(value = "User Profile Picture", position = 15)
-    private String userPicture;
-
     @ElementCollection(fetch = FetchType.EAGER)
-    @ApiModelProperty(value = "User Type", position = 16)
+    @ApiModelProperty(value = "User Type", position = 15)
     private List<String> type;
 
-    @ApiModelProperty(value = "Vendor Description", position = 17)
+    @ApiModelProperty(value = "Vendor Description", position = 16)
     private String vendorDescription;
+
+    @ApiModelProperty(value = "User photoUrl", position = 17)
+    private String photoUrl;
 
     @PrePersist
     protected void onCreate(){

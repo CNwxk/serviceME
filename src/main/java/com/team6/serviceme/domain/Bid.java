@@ -20,7 +20,7 @@ import java.util.Date;
 public class Bid {
     @ApiModelProperty(value = "Id", position = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ApiModelProperty(value = "Order Id", position = 2)

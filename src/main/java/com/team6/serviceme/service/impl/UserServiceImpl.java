@@ -105,13 +105,12 @@ public class UserServiceImpl implements UserService {
     public User updateInformation(User user, User u){
         u.setPhone(user.getPhone());
         u.setType(user.getType());
-        u.setUserPicture(user.getUserPicture());
         u.setUserState(user.getUserState());
         u.setUserCity(user.getUserCity());
         u.setUserDetailAddress(user.getUserDetailAddress());
         u.setUserZipCode(user.getUserZipCode());
         u.setVendorDescription(user.getVendorDescription());
-
+        u.setPhotoUrl(user.getPhotoUrl());
 
         return userRepository.save(u);
     }

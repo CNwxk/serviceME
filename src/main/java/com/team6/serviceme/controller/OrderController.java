@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(tags = "Order Management")
 @RestController
@@ -27,6 +28,7 @@ public class OrderController {
     /**
      * createOrder
      * @param order
+     * @param auth
      * @return
      */
     @PostMapping("/order/createOrder")
@@ -37,4 +39,29 @@ public class OrderController {
         order.setUserId(id);
         return new ResultResponse<>(orderService.createNewOrder(order));
     }
+
+    /**
+     * getCustomerOrderList
+     * @param auth
+     * @return
+     */
+    @PostMapping("/order/getCustomerOrderList")
+    @ApiOperation(value="getCustomerOrderList")
+    public BaseResponse<List<Order>> getCustomerOrderList(Authentication auth) throws AuthenticationException{
+        User u = (User) auth.getPrincipal();
+        return new ResultResponse<>(orderService.getCustomerOrderList(u));
+    }
+
+    /**
+     * getCustomerOrderList
+     * @param auth
+     * @return
+     */
+    @PostMapping("/order/getVendorOrderList")
+    @ApiOperation(value="getVendorOrderList")
+    public BaseResponse<List<Order>> getVendorOrderList(Authentication auth) throws AuthenticationException{
+        User u = (User) auth.getPrincipal();
+        return new ResultResponse<>(orderService.getVendorOrderList(u));
+    }
+
 }
