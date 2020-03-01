@@ -21,7 +21,7 @@ import java.util.Date;
 public class Order {
     @ApiModelProperty(value = "Id", position = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ApiModelProperty(value = "Order Id", position = 2)
@@ -77,10 +77,13 @@ public class Order {
     @NonNull
     private String serviceTime;
 
-    @ApiModelProperty(value = "createTime", position = 16)
+    @ApiModelProperty(value = "Customer Problem Description Picture", position = 16)
+    private String descriptionPicture;
+
+    @ApiModelProperty(value = "createTime", position = 17)
     private Date creatTime;
 
-    @ApiModelProperty(value = "updateTime", position = 17)
+    @ApiModelProperty(value = "updateTime", position = 18)
     private Date updateTime;
 
     @PrePersist

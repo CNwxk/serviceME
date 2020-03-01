@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
         u.setUserDetailAddress(user.getUserDetailAddress());
         u.setUserZipCode(user.getUserZipCode());
         u.setVendorDescription(user.getVendorDescription());
-
+        u.setPhotoUrl(user.getPhotoUrl());
 
         return userRepository.save(u);
     }
