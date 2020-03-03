@@ -53,7 +53,7 @@ public class OrderController {
     }
 
     /**
-     * getCustomerOrderList
+     * getVendorOrderList
      * @param auth
      * @return
      */
