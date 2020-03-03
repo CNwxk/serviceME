@@ -24,7 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class User implements UserDetails {
     @ApiModelProperty(value = "User Id", position = 1)
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ApiModelProperty(value = "User Name", position = 2)
