@@ -67,7 +67,6 @@ public class Order {
     private String orderPhone;
 
     @ApiModelProperty(value = "Order Status", position = 13)
-    @NonNull
     private Integer orderStatus;
 
     @ApiModelProperty(value = "Customer Accept Price", position = 14)

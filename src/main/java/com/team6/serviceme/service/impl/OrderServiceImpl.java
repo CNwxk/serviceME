@@ -21,6 +21,7 @@ public class OrderServiceImpl implements OrderService {
     public Order createNewOrder(Order order){
         long orderNo = this.generateOrderNo();
         order.setOrderId(orderNo);
+        order.setOrderStatus(1);
         return orderRepository.save(order);
     }
 
